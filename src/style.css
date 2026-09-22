@@ -1,0 +1,57 @@
+/* ===== Buddy DESIGN.md tokens ===== */
+:root {
+  /* Colors */
+  --color-lime-spark: #bfff5a;
+  --color-cobalt-signal: #1a67fd;
+  --color-forest-depth: #0b3d28;
+  --color-paper-white: #fcfcfd;
+  --color-midnight-ink: #1d2130;
+  --color-carbon: #151720;
+  --color-obsidian: #0a0d16;
+  --color-mist-gray: #ebeef7;
+  --color-slate-edge: #d5d9e8;
+  --color-silver-wash: #d6d6d7;
+  --color-pewter: #6b6d72;
+  --color-graphite: #474950;
+  --color-mint-tint: #d8fbed;
+
+  /* Fonts */
+  --font-ibm-plex-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
+
+  /* Radius */
+  --radius-cards: 24px;
+  --radius-images: 8px;
+  --radius-buttons: 56px;
+  --radius-field: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-ibm-plex-sans);
+  color: var(--color-carbon);
+  background-color: var(--color-paper-white);
+  /* 草稿纸网格背景 */
+  background-image: linear-gradient(rgba(235, 238, 247, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(235, 238, 247, 0.6) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#app {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
