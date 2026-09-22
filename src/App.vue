@@ -56,18 +56,18 @@ async function saveToAlbum(blob) {
   const file = new File([blob], 'token-qrcode.png', { type: 'image/png' })
 
   // 优先：系统分享面板（iOS 15+ / Android Chrome 可在面板里选“存储到照片/相册”）
-  if (navigator.canShare && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share({
-        files: [file],
-        title: '二维码',
-        text: 'Token 二维码'
-      })
-      return
-    } catch (e) {
-      // 用户取消或不支持，继续走下载兜底
-    }
-  }
+  // if (navigator.canShare && navigator.canShare({ files: [file] })) {
+  //   try {
+  //     await navigator.share({
+  //       files: [file],
+  //       title: '二维码',
+  //       text: 'Token 二维码'
+  //     })
+  //     return
+  //   } catch (e) {
+  //     // 用户取消或不支持，继续走下载兜底
+  //   }
+  // }
 
   // 兜底：触发下载（Android / 桌面有效）
   const url = URL.createObjectURL(blob)
