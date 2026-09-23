@@ -135,7 +135,11 @@ async function saveToAlbum(blob) {
       </section>
     </main>
 
-    <footer class="foot">Buddy · 工程草稿纸风格</footer>
+    <footer class="foot">
+      <a class="back" href="./bridge.html">微信内一键保存 →</a>
+      <span class="sep">·</span>
+      <span>Buddy · 工程草稿纸风格</span>
+    </footer>
   </div>
 </template>
 
@@ -315,10 +319,22 @@ async function saveToAlbum(blob) {
 }
 
 .foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-ibm-plex-mono);
   font-size: 11px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  color: var(--color-silver-wash);
+}
+.foot .back {
+  color: var(--color-cobalt-signal);
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.foot .sep {
   color: var(--color-silver-wash);
 }
 </style>
