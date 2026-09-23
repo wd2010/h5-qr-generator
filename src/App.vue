@@ -7,6 +7,7 @@ const previewUrl = ref('')
 const error = ref('')
 const saving = ref(false)
 const longPressHint = ref(false)
+const weChat = ref(/MicroMessenger/i.test(navigator.userAgent))
 
 function isIOS() {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent)
@@ -35,15 +36,24 @@ async function generateAndSave() {
       }
     })
 
-    // 2) 导出为 PNG blob
+    // 2) data URL：微信/内置浏览器长按存图依赖 <img> 的真实地址，
+    //    blob: 在微信里无法触发“保存到相册”，必须用 data: 或 http(s) 地址
+    const dataUrl = canvas.toDataURL('image/png')
+    previewUrl.value = dataUrl
+
+    // 3) 微信内置浏览器：navigator.share / <a download> 均被拦截，
+    //    直接展示图片并提示用户长按保存到相册（最稳的方式）
+    if (weChat.value) {
+      longPressHint.value = true
+      return
+    }
+
     const blob = await new Promise((resolve) =>
       canvas.toBlob(resolve, 'image/png')
     )
     if (!blob) throw new Error('二维码生成失败')
 
-    previewUrl.value = URL.createObjectURL(blob)
-
-    // 3) 保存到相册
+    // 4) 非微信环境：优先系统分享面板，兜底下载
     await saveToAlbum(blob)
   } catch (e) {
     error.value = '生成失败：' + (e?.message || e)
@@ -118,9 +128,9 @@ async function saveToAlbum(blob) {
       <section v-if="previewUrl" class="preview">
         <p class="preview-title">预览</p>
         <img :src="previewUrl" alt="二维码预览" class="qr-img" />
-        <p class="preview-hint">长按上方二维码可存储到照片</p>
+        <p class="preview-hint">长按上方二维码即可保存到相册</p>
         <p v-if="longPressHint" class="hint">
-          iOS 不支持直接下载，请<span class="hl">长按二维码 → 选择“存储到照片”</span>。
+          {{ weChat ? '微信内无法一键下载，请' : '当前浏览器无法一键下载，请' }}<span class="hl">长按二维码 → 选择“保存到相册”</span>。
         </p>
       </section>
     </main>
